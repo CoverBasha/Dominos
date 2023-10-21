@@ -112,12 +112,6 @@
     <Compile Include="MVVM\View\MainMenuView.xaml.cs">
       <DependentUpon>MainMenuView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\View\OpponentBoardView.xaml.cs">
-      <DependentUpon>OpponentBoardView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MVVM\View\PlayerBoardView.xaml.cs">
-      <DependentUpon>PlayerBoardView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Services\NavigationStore.cs" />
     <Page Include="MVVM\View\BoneView.xaml">
       <SubType>Designer</SubType>
@@ -153,14 +147,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MVVM\View\OpponentBoardView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MVVM\View\PlayerBoardView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
