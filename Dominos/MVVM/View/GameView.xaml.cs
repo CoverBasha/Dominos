@@ -1045,6 +1045,60 @@ namespace Dominos.MVVM.View
                 RoundScreen.Visibility = Visibility.Visible;
                 roundTimer.Start();
             }
+            else if (left == right)
+            {
+                int count = 0;
+                foreach (var bone in GameViewModel.Ground)
+                {
+                    if (bone.Bone.Left == left || bone.Bone.Right == left)
+                        count++;
+                }
+                if (count == 7)
+                {
+                    if (GameViewModel.Player.Total() > GameViewModel.Opponent.Total())
+                    {
+                        GameViewModel.Player.Score += GameViewModel.Opponent.Total();
+                        YourScore.Text = GameViewModel.Player.Score.ToString();
+                        GameViewModel.Game.Next();
+                        GameViewModel.Game.Won = true;
+                        GameLayout();
+                        RoundText.Text = "Round " + GameViewModel.Game.Round;
+                        WinnerText.Text = "You win!";
+                        WinnerText.Foreground = Brushes.Green;
+                        RoundScreen.Visibility = Visibility.Visible;
+                        roundTimer.Start();
+                    }
+                    else if (GameViewModel.Player.Total() < GameViewModel.Opponent.Total())
+                    {
+                        GameViewModel.Opponent.Score += GameViewModel.Player.Total();
+                        OpponentScore.Text = GameViewModel.Opponent.Score.ToString();
+                        GameViewModel.Game.Next();
+                        GameViewModel.Game.Won = false;
+                        GameLayout();
+                        RoundText.Text = "Round " + GameViewModel.Game.Round;
+                        WinnerText.Text = "You lose!";
+                        WinnerText.Foreground = Brushes.Crimson;
+                        RoundScreen.Visibility = Visibility.Visible;
+                        roundTimer.Start();
+                    }
+                    else
+                    {
+                        GameViewModel.Game.Next();
+                        GameViewModel.Game.Won = false;
+                        GameLayout();
+                        RoundText.Text = "Round " + GameViewModel.Game.Round;
+                        WinnerText.Text = "Draw";
+                        WinnerText.Foreground = Brushes.Blue;
+                        RoundScreen.Visibility = Visibility.Visible;
+                        roundTimer.Start();
+                    }
+
+
+
+                }
+                else
+                    StartTimer();
+            }
             else
                 StartTimer();
         }
@@ -1111,9 +1165,9 @@ namespace Dominos.MVVM.View
                         lengthRight += 1;
                     }
                     Canvas.SetTop(OppBoneView, Canvas.GetTop(RightViewModel.BoneView));
-                    PlaceBone(OppBone);
                     right = OppBone.Bone.Left;
                     RightViewModel = OppBone;
+                    PlaceBone(OppBone);
                     OppBone = null;
                     return;
                 }
@@ -1143,10 +1197,10 @@ namespace Dominos.MVVM.View
                             }
                         }
                         lengthBottom += (float)0.5;
-                        PlaceBone(OppBone);
                         right = OppBone.Bone.Left;
                         RightViewModel = OppBone;
                         turnDown = false;
+                        PlaceBone(OppBone);
                         OppBone = null;
                         return;
                     }
@@ -1168,9 +1222,9 @@ namespace Dominos.MVVM.View
                         lengthBottom += 1;
                     }
                     Canvas.SetLeft(OppBoneView, Canvas.GetLeft(RightViewModel.BoneView));
-                    PlaceBone(OppBone);
                     right = OppBone.Bone.Left;
                     RightViewModel = OppBone;
+                    PlaceBone(OppBone);
                     OppBone = null;
                     return;
                 }
@@ -1199,9 +1253,9 @@ namespace Dominos.MVVM.View
                                 Canvas.SetLeft(OppBoneView, Canvas.GetLeft(RightViewModel.BoneView) - 124);
                             }
                         }
-                        PlaceBone(OppBone);
                         right = OppBone.Bone.Left;
                         RightViewModel = OppBone;
+                        PlaceBone(OppBone);
                         OppBone = null;
                         turnLeft = false;
                         return;
@@ -1257,9 +1311,9 @@ namespace Dominos.MVVM.View
                         lengthRight += 1;
                     }
                     Canvas.SetTop(OppBoneView, Canvas.GetTop(RightViewModel.BoneView));
-                    PlaceBone(OppBone);
                     right = OppBone.Bone.Right;
                     RightViewModel = OppBone;
+                    PlaceBone(OppBone);
                     OppBone = null;
                     return;
                 }
@@ -1289,9 +1343,9 @@ namespace Dominos.MVVM.View
                             }
                         }
                         lengthBottom += (float)0.5;
-                        PlaceBone(OppBone);
                         right = OppBone.Bone.Right;
                         RightViewModel = OppBone;
+                        PlaceBone(OppBone);
                         OppBone = null;
                         turnDown = false;
                         return;
@@ -1314,9 +1368,9 @@ namespace Dominos.MVVM.View
                         lengthBottom += 1;
                     }
                     Canvas.SetLeft(OppBoneView, Canvas.GetLeft(RightViewModel.BoneView));
-                    PlaceBone(OppBone);
                     right = OppBone.Bone.Right;
                     RightViewModel = OppBone;
+                    PlaceBone(OppBone);
                     OppBone = null;
                     return;
                 }
@@ -1345,9 +1399,9 @@ namespace Dominos.MVVM.View
                                 Canvas.SetLeft(OppBoneView, Canvas.GetLeft(RightViewModel.BoneView) - 124);
                             }
                         }
-                        PlaceBone(OppBone);
                         right = OppBone.Bone.Right;
                         RightViewModel = OppBone;
+                        PlaceBone(OppBone);
                         OppBone = null;
                         turnLeft = false;
                         return;
@@ -1368,9 +1422,9 @@ namespace Dominos.MVVM.View
                             Canvas.SetLeft(OppBoneView, Canvas.GetLeft(RightViewModel.BoneView) - 166);
                     }
                     Canvas.SetTop(OppBoneView, Canvas.GetTop(RightViewModel.BoneView));
-                    PlaceBone(OppBone);
                     right = OppBone.Bone.Right;
                     RightViewModel = OppBone;
+                    PlaceBone(OppBone);
                     OppBone = null;
                     return;
                 }
@@ -1403,9 +1457,9 @@ namespace Dominos.MVVM.View
                         lengthLeft += 1;
                     }
                     Canvas.SetTop(OppBoneView, Canvas.GetTop(LeftViewModel.BoneView));
-                    PlaceBone(OppBone);
                     left = OppBone.Bone.Left;
                     LeftViewModel = OppBone;
+                    PlaceBone(OppBone);
                     OppBone = null;
                     return;
                 }
@@ -1435,9 +1489,9 @@ namespace Dominos.MVVM.View
                             }
                         }
                         lengthTop += (float)0.5;
-                        PlaceBone(OppBone);
                         left = OppBone.Bone.Left;
                         LeftViewModel = OppBone;
+                        PlaceBone(OppBone);
                         OppBone = null;
                         turnUp = false;
                         return;
@@ -1460,9 +1514,9 @@ namespace Dominos.MVVM.View
                         lengthTop += 1;
                     }
                     Canvas.SetLeft(OppBoneView, Canvas.GetLeft(LeftViewModel.BoneView));
-                    PlaceBone(OppBone);
                     left = OppBone.Bone.Left;
                     LeftViewModel = OppBone;
+                    PlaceBone(OppBone);
                     OppBone = null;
                     return;
                 }
@@ -1491,9 +1545,9 @@ namespace Dominos.MVVM.View
                                 Canvas.SetLeft(OppBoneView, Canvas.GetLeft(LeftViewModel.BoneView) + 124);
                             }
                         }
-                        PlaceBone(OppBone);
                         left = OppBone.Bone.Left;
                         LeftViewModel = OppBone;
+                        PlaceBone(OppBone);
                         OppBone = null;
                         turnRight = false;
                         return;
@@ -1515,9 +1569,9 @@ namespace Dominos.MVVM.View
 
                     }
                     Canvas.SetTop(OppBoneView, Canvas.GetTop(LeftViewModel.BoneView));
-                    PlaceBone(OppBone);
                     left = OppBone.Bone.Left;
                     LeftViewModel = OppBone;
+                    PlaceBone(OppBone);
                     OppBone = null;
                     return;
                 }
@@ -1548,9 +1602,9 @@ namespace Dominos.MVVM.View
                         lengthLeft += 1;
                     }
                     Canvas.SetTop(OppBoneView, Canvas.GetTop(LeftViewModel.BoneView));
-                    PlaceBone(OppBone);
                     left = OppBone.Bone.Right;
                     LeftViewModel = OppBone;
+                    PlaceBone(OppBone);
                     OppBone = null;
                     return;
                 }
@@ -1580,9 +1634,9 @@ namespace Dominos.MVVM.View
                             }
                         }
                         lengthTop += (float)0.5;
-                        PlaceBone(OppBone);
                         left = OppBone.Bone.Right;
                         LeftViewModel = OppBone;
+                        PlaceBone(OppBone);
                         OppBone = null;
                         turnUp = false;
                         return;
@@ -1605,9 +1659,9 @@ namespace Dominos.MVVM.View
                         lengthTop += 1;
                     }
                     Canvas.SetLeft(OppBoneView, Canvas.GetLeft(LeftViewModel.BoneView));
-                    PlaceBone(OppBone);
                     left = OppBone.Bone.Right;
                     LeftViewModel = OppBone;
+                    PlaceBone(OppBone);
                     OppBone = null;
                     return;
                 }
@@ -1636,9 +1690,9 @@ namespace Dominos.MVVM.View
                                 Canvas.SetLeft(OppBoneView, Canvas.GetLeft(LeftViewModel.BoneView) + 124);
                             }
                         }
-                        PlaceBone(OppBone);
                         left = OppBone.Bone.Right;
                         LeftViewModel = OppBone;
+                        PlaceBone(OppBone);
                         OppBone = null;
                         turnRight = false;
                         return;
@@ -1659,9 +1713,9 @@ namespace Dominos.MVVM.View
                             Canvas.SetLeft(OppBoneView, Canvas.GetLeft(LeftViewModel.BoneView) + 166);
                     }
                     Canvas.SetTop(OppBoneView, Canvas.GetTop(LeftViewModel.BoneView));
-                    PlaceBone(OppBone);
                     left = OppBone.Bone.Right;
                     LeftViewModel = OppBone;
+                    PlaceBone(OppBone);
                     OppBone = null;
                     return;
                 }
@@ -1686,6 +1740,55 @@ namespace Dominos.MVVM.View
                 WinnerText.Foreground = Brushes.Crimson;
                 RoundScreen.Visibility = Visibility.Visible;
                 roundTimer.Start();
+            }
+            else if (left == right)
+            {
+                int count = 0;
+                foreach (var bone in GameViewModel.Ground)
+                {
+                    if (bone.Bone.Left == left || bone.Bone.Right == left)
+                        count++;
+                }
+                if (count == 7)
+                {
+                    if (GameViewModel.Player.Total() > GameViewModel.Opponent.Total())
+                    {
+                        GameViewModel.Player.Score += GameViewModel.Opponent.Total();
+                        YourScore.Text = GameViewModel.Player.Score.ToString();
+                        GameViewModel.Game.Next();
+                        GameViewModel.Game.Won = true;
+                        GameLayout();
+                        RoundText.Text = "Round " + GameViewModel.Game.Round;
+                        WinnerText.Text = "You win!";
+                        WinnerText.Foreground = Brushes.Green;
+                        RoundScreen.Visibility = Visibility.Visible;
+                        roundTimer.Start();
+                    }
+                    else if (GameViewModel.Player.Total() < GameViewModel.Opponent.Total())
+                    {
+                        GameViewModel.Opponent.Score += GameViewModel.Player.Total();
+                        OpponentScore.Text = GameViewModel.Opponent.Score.ToString();
+                        GameViewModel.Game.Next();
+                        GameViewModel.Game.Won = false;
+                        GameLayout();
+                        RoundText.Text = "Round " + GameViewModel.Game.Round;
+                        WinnerText.Text = "You lose!";
+                        WinnerText.Foreground = Brushes.Crimson;
+                        RoundScreen.Visibility = Visibility.Visible;
+                        roundTimer.Start();
+                    }
+                    else
+                    {
+                        GameViewModel.Game.Next();
+                        GameViewModel.Game.Won = true;
+                        GameLayout();
+                        RoundText.Text = "Round " + GameViewModel.Game.Round;
+                        WinnerText.Text = "Draw";
+                        WinnerText.Foreground = Brushes.Blue;
+                        RoundScreen.Visibility = Visibility.Visible;
+                        roundTimer.Start();
+                    }
+                }
             }
         }
 

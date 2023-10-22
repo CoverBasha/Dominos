@@ -203,5 +203,8 @@
   <ItemGroup>
     <Resource Include="Media\Dominoes-icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Media\Logo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
