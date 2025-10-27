@@ -18,25 +18,25 @@
     <Border>
 
         <Border.Background>
-            <ImageBrush ImageSource="C:\Users\Ahmed\source\repos\Dominos\Dominos\Media\Board.png"/>
+            <ImageBrush ImageSource="/Media/Board.png"/>
         </Border.Background>
 
-        
 
-            <ContentControl Content="{Binding CurrentViewModel}">
-                <ContentControl.Resources>
-                    <DataTemplate DataType="{x:Type vms:MainMenuViewModel}">
-                        <View:MainMenuView/>
-                    </DataTemplate>
 
-                    <DataTemplate DataType="{x:Type vms:GameViewModel}">
-                        <View:GameView/>
-                    </DataTemplate>
-                </ContentControl.Resources>
+        <ContentControl Content="{Binding CurrentViewModel}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type vms:MainMenuViewModel}">
+                    <View:MainMenuView/>
+                </DataTemplate>
 
-            </ContentControl>
+                <DataTemplate DataType="{x:Type vms:GameViewModel}">
+                    <View:GameView/>
+                </DataTemplate>
+            </ContentControl.Resources>
 
-        
+        </ContentControl>
+
+
     </Border>
 
 </Window>

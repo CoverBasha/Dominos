@@ -1,30 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Dominos.MVVM.Model;
-using Dominos.MVVM.View;
-using Application = System.Windows.Forms.Application;
+using Dominos.MVVM.ViewModel;
 
-namespace Dominos.MVVM.ViewModel
+namespace Dominos.MVVM.View
 {
-    public class BoneViewModel : ViewModelBase
+    /// <summary>
+    /// Interaction logic for Bone.xaml
+    /// </summary>
+    public partial class PieceView : UserControl 
     {
-        public Bone Bone { get; set; }
-        public BoneView BoneView { get; set; }
-
-        public BoneViewModel(byte left, byte right)
+        public PieceView()
         {
-            Bone = new Bone(left, right);
-            BoneView = new BoneView();
-            Arrange(BoneView.Left, left);
-            Arrange(BoneView.Right, right);
+            InitializeComponent();
+            DataContextChanged += ContextChanged;
+        }
+
+        void ContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if(e.NewValue is PieceViewModel vm)
+            {
+                Redraw(vm.Left, vm.Right);
+            }
+        }
+
+        void Redraw(int? left, int? right)
+        {
+            if (left == null)
+                return;
+            Left.Children.Clear();
+            Right.Children.Clear();
+
+            Arrange(Left, (byte)left);
+            Arrange(Right, (byte)right);
+            
         }
         private void Arrange(Grid grid, byte dots)
         {
@@ -36,7 +47,7 @@ namespace Dominos.MVVM.ViewModel
                 CornerRadius = new CornerRadius(2.5)
             };
 
-            BoneView.Layout.Children.Add(b);
+            Layout.Children.Add(b);
             Grid.SetColumn(b, 1);
 
             if (dots == 0)

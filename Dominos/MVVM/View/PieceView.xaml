@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="Dominos.MVVM.View.PieceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             d:DesignHeight="70" d:DesignWidth="140"
+             Width="140" Height="70">
+
+    <Border x:Name="Border"
+        CornerRadius="7"
+        BorderThickness="2">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                        <Setter Property="BorderBrush" Value="Red"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ShouldDarken}" Value="True">
+                        <Setter Property="Background" Value="#A69C8E"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ShouldDarken}" Value="False">
+                        <Setter Property="Background" Value="AntiqueWhite"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsPlaceHolder}" Value="True">
+                        <Setter Property="Opacity" Value="0.5"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+
+        <Grid>
+            <Grid Name="Layout" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="4.6"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" x:Name="Left" Margin="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+
+                <Grid Grid.Column="2" x:Name="Right" Margin="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </Grid>
+
+            <Button BorderThickness="0"
+                Background="Transparent"
+                Cursor="Hand"
+                Command="{Binding SelectCommand}"
+                CommandParameter="{Binding}"
+                IsEnabled="{Binding IsPlayable}"
+                Focusable="False"
+                Panel.ZIndex="10">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Opacity" Value="0.1"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+    </Border>
+
+
+</UserControl>

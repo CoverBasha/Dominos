@@ -9,28 +9,13 @@ namespace Dominos.MVVM.Model
 {
     public class Player
     {
-        public List<BoneViewModel> Bones;
-        public int Score;
-        public Player(List<BoneViewModel> bones)
-        {
-            Bones = bones;
-            Score = 0;
-        }
-
+        public List<Piece> Hand { get; set; }
+        public int Score { get; set; }
+        public int Total => Hand.Sum(p => p.Value);
         public Player()
         {
             Score = 0;
-        }
-        public int Total()
-        {
-            int total = 0;
-
-            for (int i = 0; i < Bones.Count; i++)
-            {
-                total += Bones[i].Bone.Value();
-            }
-
-            return total;
+            Hand = new List<Piece>();
         }
     }
 }

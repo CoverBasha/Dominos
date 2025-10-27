@@ -11,7 +11,7 @@
         <StackPanel Orientation="Vertical"
                     VerticalAlignment="Center">
 
-            <Image Source="C:\Users\Ahmed\source\repos\Dominos\Dominos\Media\Logo.png"
+            <Image Source="/Media/Logo.png"
                    Stretch="Uniform"
                    Height="300"/>
 

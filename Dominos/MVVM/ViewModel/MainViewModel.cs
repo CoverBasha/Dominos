@@ -23,7 +23,7 @@ namespace Dominos.MVVM.ViewModel
 
         private void OnCurrentViewModelChanged()
         {
-            OnpropertyChanged(nameof(CurrentViewModel));
+            OnPropertyChanged(nameof(CurrentViewModel));
         }
 
     }

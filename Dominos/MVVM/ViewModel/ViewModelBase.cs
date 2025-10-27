@@ -6,7 +6,7 @@ namespace Dominos.MVVM.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnpropertyChanged(string propertyName)
+        protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
